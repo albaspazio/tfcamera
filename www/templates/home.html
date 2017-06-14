@@ -1,0 +1,28 @@
+
+<ion-view view-title="Home">  
+    
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-settings" ui-sref="settings">  </button>
+    </ion-nav-buttons>
+    
+    <ion-content>
+
+        <label class="item">Modello<span class="badge">{{loadedModelLabel}}</span></label>   
+        <button class="button button-block" ng-click="takePicture()" ng-disabled="!canClassify">recognize object</button>       
+
+        <ion-card>
+            <img src="{{base64Image}}"/>  
+            <p></p>
+            <ion-card-content>
+                <ion-card-title>
+                    Possible Objects
+                </ion-card-title>                
+                <ion-list>
+                    <ion-item ng-repeat="item in recognizedItems track by $index">
+                        <label>{{item.title}}<span class="badge">{{item.confidence}}</span></label>
+                    </ion-item>
+                </ion-list>                
+            </ion-card-content>
+        </ion-card>          
+    </ion-content>
+</ion-view>
