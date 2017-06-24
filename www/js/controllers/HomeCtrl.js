@@ -4,7 +4,7 @@ function HomeCtrl($scope, $cordovaCamera, $ionicHistory, TfSrv)
     $scope.canClassify      = false;
     $scope.base64Image      = "";
     $scope.modelName        = 'inception-v1';
-    $scope.modelFolder      = 
+    $scope.modelFolder      = "";
     
     $scope.recognizedItems  = new Array();
     
