@@ -4,6 +4,7 @@ function HomeCtrl($scope, $cordovaCamera, $ionicHistory, TfSrv)
     $scope.canClassify      = false;
     $scope.base64Image      = "";
     $scope.modelName        = 'inception-v1';
+    $scope.modelFolder      = 
     
     $scope.recognizedItems  = new Array();
     
@@ -17,6 +18,7 @@ function HomeCtrl($scope, $cordovaCamera, $ionicHistory, TfSrv)
     $scope.takePicture = function()
     {
         $scope.photoExist = false;
+        $scope.recognizedItems = [];
         return $cordovaCamera.getPicture({
                         destinationType: Camera.DestinationType.DATA_URL,
                         targetWidth: 480,

@@ -10,15 +10,18 @@ function TfSrv($window, $q, $cordovaTransfer, FileSystemSrv)
 
     service.initTF = function(modelName, downloadprogr)
     {
-        service.resolvedOutDataFolder = FileSystemSrv.setUnresolvedOutDataFolder("externalDataDirectory");
-        
-        service.FIELDS  = $window.TensorFlow._modelFields;
-        service.models  = $window.TensorFlow._models;
-        service.tf      = new TensorFlow(modelName);
+        service.resolvedOutDataFolder   = FileSystemSrv.setUnresolvedOutDataFolder("externalRootDirectory");
+        service.relModelsFolder         = "tfcamera/models";
+        service.FIELDS                  = $window.TensorFlow._modelFields;
+        service.models                  = $window.TensorFlow._models;
+        service.tf                      = new TensorFlow(modelName);
         
         if(downloadprogr != null) service.tf.onprogress = downloadprogr;
             
-        return service.checkCached(service.tf.model)
+        return FileSystemSrv.createDir(service.relModelsFolder, false)
+        .then(function(){
+            return service.checkCached(service.tf.model)
+        })
         .then(function(isCached) {
             if (isCached)   return true;
             else            return service.downloadModelZip(service.tf.model, service.tf.onprogress)
@@ -156,7 +159,7 @@ function TfSrv($window, $q, $cordovaTransfer, FileSystemSrv)
 
     service.getPath = function (filename, pathroot) 
     {
-        return service.resolvedOutDataFolder + filename;
+        return service.resolvedOutDataFolder + service.relModelsFolder + "/" + filename;
     }
 
     service.registerModel = function (modelId, model) 
